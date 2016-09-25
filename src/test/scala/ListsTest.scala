@@ -10,4 +10,9 @@ class ListsTest extends FlatSpec {
     val list = List(1, 1, 2, 3, 5, 8)
     assert(P01.last(list) == 8)
   }
+
+  it should "return its last but one element" in {
+    val list = List(1, 1, 2, 3, 5, 8)
+    assert(P02.penultimate(list) == 5)
+  }
 }
