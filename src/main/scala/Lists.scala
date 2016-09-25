@@ -27,4 +27,15 @@ object Lists {
       case _ => throw new NoSuchElementException
     }
   }
+
+  object P04 {
+    def length[T](list: List[T]): Int = {
+      def loop[T](n: Int, list: List[T]): Int = list match {
+        case Nil => n
+        case _ :: xs => loop(n + 1, xs)
+      }
+
+      loop(0, list)
+    }
+  }
 }

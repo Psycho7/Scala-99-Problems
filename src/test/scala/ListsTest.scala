@@ -46,4 +46,9 @@ class ListsTest extends FlatSpec {
       P03.nth(5, List(1, 2, 3, 4))
     }
   }
+
+  "length method" should "return the length of a list" in {
+    assert(P04.length(List(1, 2, 3 ,4)) == 4)
+    assert(P04.length(List()) == 0)
+  }
 }
