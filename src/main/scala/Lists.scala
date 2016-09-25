@@ -5,7 +5,7 @@ import java.io.OutputStream
   */
 object Lists {
   object P01 {
-    def last(list: List[Int]): Int = list match {
+    def last[T](list: List[T]): T = list match {
       case x :: Nil => x
       case _ :: xs => last(xs)
       case _ => throw new NoSuchElementException
@@ -13,7 +13,7 @@ object Lists {
   }
 
   object P02 {
-    def penultimate(list: List[Int]): Int = list match {
+    def penultimate[T](list: List[T]): T = list match {
       case x :: _ :: Nil => x
       case _ :: xs => penultimate(xs)
       case _ => throw new NoSuchElementException
@@ -21,7 +21,7 @@ object Lists {
   }
 
   object P03 {
-    def nth(n: Int, list: List[Int]): Int = list match {
+    def nth[T](n: Int, list: List[T]): T = list match {
       case x :: _ if n == 0 => x
       case _ :: xs => nth(n - 1, xs)
       case _ => throw new NoSuchElementException
