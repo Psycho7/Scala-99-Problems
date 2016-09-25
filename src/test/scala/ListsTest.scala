@@ -34,4 +34,16 @@ class ListsTest extends FlatSpec {
       P02.penultimate(List(1))
     }
   }
+
+  "nth method" should "return the nth element of a list" in {
+    assert(P03.nth(0, List(1, 1, 2, 3, 5, 8)) == 1)
+    assert(P03.nth(2, List(1, 1, 2, 3, 5, 8)) == 2)
+    assert(P03.nth(5, List(1, 1, 2, 3, 5, 8)) == 8)
+  }
+
+  it should "throw NoSuchElementException if a list does not long enough" in {
+    assertThrows[NoSuchElementException] {
+      P03.nth(5, List(1, 2, 3, 4))
+    }
+  }
 }
