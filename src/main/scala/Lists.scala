@@ -49,4 +49,8 @@ object Lists {
       loop(Nil, list)
     }
   }
+
+  object P06 {
+    def isPalindrome[T](list: List[T]): Boolean = list == P05.reverse(list)
+  }
 }

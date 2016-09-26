@@ -56,4 +56,10 @@ class ListsTest extends FlatSpec {
     val ori = List(1, 1, 2, 3, 5, 8)
     assert(P05.reverse(ori) == List(8, 5, 3, 2, 1, 1))
   }
+
+  "isPalindrome method" should "check if a list is palindrome" in {
+    assert(P06.isPalindrome(List(1)))
+    assert(P06.isPalindrome(List(1, 2, 1)))
+    assert(!P06.isPalindrome(List(1, 2, 3)))
+  }
 }
