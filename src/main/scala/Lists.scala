@@ -30,12 +30,23 @@ object Lists {
 
   object P04 {
     def length[T](list: List[T]): Int = {
-      def loop[T](n: Int, list: List[T]): Int = list match {
+      def loop(n: Int, list: List[T]): Int = list match {
         case Nil => n
         case _ :: xs => loop(n + 1, xs)
       }
 
       loop(0, list)
+    }
+  }
+
+  object P05 {
+    def reverse[T](list: List[T]): List[T] = {
+      def loop(acc: List[T], res: List[T]): List[T] = res match {
+        case Nil => acc
+        case x :: xs => loop(x :: acc, xs)
+      }
+
+      loop(Nil, list)
     }
   }
 }

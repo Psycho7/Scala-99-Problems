@@ -51,4 +51,9 @@ class ListsTest extends FlatSpec {
     assert(P04.length(List(1, 2, 3 ,4)) == 4)
     assert(P04.length(List()) == 0)
   }
+
+  "reverse method" should "return a reversed list" in {
+    val ori = List(1, 1, 2, 3, 5, 8)
+    assert(P05.reverse(ori) == List(8, 5, 3, 2, 1, 1))
+  }
 }
