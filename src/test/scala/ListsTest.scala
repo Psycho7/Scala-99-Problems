@@ -62,4 +62,9 @@ class ListsTest extends FlatSpec {
     assert(P06.isPalindrome(List(1, 2, 1)))
     assert(!P06.isPalindrome(List(1, 2, 3)))
   }
+
+  "flatten method" should "flatten a nested list structure" in {
+    val ori = List(List(1, 1), 2, List(3, List(5, 8)))
+    assert(P07.flatten(ori) == List(1, 1, 2, 3, 5, 8))
+  }
 }

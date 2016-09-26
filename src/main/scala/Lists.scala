@@ -53,4 +53,11 @@ object Lists {
   object P06 {
     def isPalindrome[T](list: List[T]): Boolean = list == P05.reverse(list)
   }
+
+  object P07 {
+    def flatten(list: List[Any]): List[Any] = (list map {
+      case xs : List[_] => flatten(xs)
+      case x => List(x)
+    }).foldLeft(Nil: List[Any])(_ ++ _)
+  }
 }
