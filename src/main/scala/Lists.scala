@@ -60,4 +60,58 @@ object Lists {
       case x => List(x)
     }).foldLeft(Nil: List[Any])(_ ++ _)
   }
+
+  object P08 {
+    def compress[T](list: List[T]): List[T] =
+      list.foldRight(List[T]()){ (item, ls) =>
+        if (ls.isEmpty || item != ls.head) item :: ls
+        else ls
+      }
+  }
+
+  object P09 {
+    def pack[T](list: List[T]): List[List[T]] = {
+      if (list.isEmpty) List(List())
+      else {
+        val (dups, res) = (
+          list takeWhile {
+            _ == list.head
+          },
+          list dropWhile {
+            _ == list.head
+          })
+        if (res == Nil) List(dups)
+        else dups :: pack(res)
+      }
+    }
+  }
+
+  object P10 {
+    def encode[T](list: List[T]): List[(Int, T)] = P09.pack(list) map {
+      x => (x.length, x.head)
+    }
+  }
+
+  object P11 {
+    def encodeModified[T](list: List[T]): List[Any] = P10.encode(list) map {
+      case (1, x) => x
+      case x => x
+    }
+  }
+
+  object P12 {
+    def decode[T](list: List[(Int, T)]): List[T] = list flatMap {
+      case (n, x) => List.fill(n)(x)
+    }
+  }
+
+  object P13 {
+    def encodeDirect[T](list: List[T]): List[(Int, T)] = {
+      if (list.isEmpty) Nil
+      else {
+        val (dups, res) = list span { _ == list.head }
+        (dups.length, dups.head) :: encodeDirect(res)
+      }
+    }
+  }
 }

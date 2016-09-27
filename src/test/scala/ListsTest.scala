@@ -67,4 +67,40 @@ class ListsTest extends FlatSpec {
     val ori = List(List(1, 1), 2, List(3, List(5, 8)))
     assert(P07.flatten(ori) == List(1, 1, 2, 3, 5, 8))
   }
+
+  "compress method" should "eliminate consecutive duplicates of elements" in {
+    val list = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
+    assert(P08.compress(list) == List('a, 'b, 'c, 'a, 'd, 'e))
+  }
+
+  "pack method" should "pack consecutive duplicates of list elements into sublists" in {
+    val ls = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
+    val ans = List(List('a, 'a, 'a, 'a), List('b), List('c, 'c), List('a, 'a), List('d), List('e, 'e, 'e, 'e))
+    assert(P09.pack(ls) == ans)
+  }
+
+  it should "create an empty sublist if a list is empty" in {
+    assert(P09.pack(List()) == List(List()))
+  }
+
+  "encode method" should "count run-length encoding of a list" in {
+    val ls = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
+    assert(P10.encode(ls) == List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e)))
+  }
+
+  "encodeModified method" should "modify the result of encode method" in {
+    val ls = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
+    assert(P11.encodeModified(ls) == List((4,'a), 'b, (2,'c), (2,'a), 'd, (4,'e)))
+  }
+
+  "decode method" should "decode the result of encode method" in {
+    val c = List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e))
+    val p = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
+    assert(P12.decode(c) == p)
+  }
+
+  "encodeDirect method" should "count run-length encoding of a list" in {
+    val ls = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
+    assert(P13.encodeDirect(ls) == List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e)))
+  }
 }
