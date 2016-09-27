@@ -103,4 +103,39 @@ class ListsTest extends FlatSpec {
     val ls = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
     assert(P13.encodeDirect(ls) == List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e)))
   }
+
+  "duplicate method" should "duplicate elements" in {
+    val ls = List('a, 'b, 'c, 'c, 'd)
+    assert(P14.duplicate(ls) == List('a, 'a, 'b, 'b, 'c, 'c, 'c, 'c, 'd, 'd))
+  }
+
+  "duplicateN method" should "duplicate elements in a given number times" in {
+    val ls = List('a, 'b, 'c, 'c, 'd)
+    assert(P15.duplicateN(3, ls) == List('a, 'a, 'a, 'b, 'b, 'b, 'c, 'c, 'c, 'c, 'c, 'c, 'd, 'd, 'd))
+  }
+
+  "drop method" should "drop every Nth elements" in {
+    val x = P16.drop(3, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
+    assert(x == List('a, 'b, 'd, 'e, 'g, 'h, 'j, 'k))
+  }
+
+  "split method" should "split a list into two parts" in {
+    val x = P17.split(3, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
+    assert(x == (List('a, 'b, 'c),List('d, 'e, 'f, 'g, 'h, 'i, 'j, 'k)))
+    val y = P17.split(5, List(1, 2, 3, 4, 5))
+    assert(y == (List(1, 2, 3, 4, 5), Nil))
+  }
+
+  "slice method" should "extract a slice from a list" in {
+    val x = P18.slice(3, 7, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
+    assert(x == List('d, 'e, 'f, 'g))
+  }
+
+  "rotate method" should "rotate a list N places to the left" in {
+    import P19.rotate
+    val x = rotate(3, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
+    assert(x == List('d, 'e, 'f, 'g, 'h, 'i, 'j, 'k, 'a, 'b, 'c))
+    val y = rotate(-2, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
+    assert(y == List('j, 'k, 'a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i))
+  }
 }

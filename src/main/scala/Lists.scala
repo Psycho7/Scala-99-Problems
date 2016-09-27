@@ -114,4 +114,57 @@ object Lists {
       }
     }
   }
+
+  object P14 {
+    def duplicate[A](ls: List[A]): List[A] = ls flatMap { x => List(x, x) }
+  }
+
+  object P15 {
+    def duplicateN[A](n: Int, ls: List[A]): List[A] = ls flatMap { List.fill(n)(_) }
+  }
+
+  object P16 {
+    def drop[A](n: Int, ls: List[A]): List[A] = {
+      def loop(idx: Int, res: List[A], acc: List[A]): List[A] = res match {
+        case Nil => acc.reverse
+        case x :: xs if (idx + 1) % n != 0 => loop(idx + 1, xs, x :: acc)
+        case _ :: xs => loop(idx + 1, xs, acc)
+      }
+
+      loop(0, ls, Nil)
+    }
+  }
+
+  object P17 {
+    def split[A](n: Int, ls: List[A]): (List[A], List[A]) = {
+      def loop(curN: Int, curL: List[A], take: List[A]): (List[A], List[A]) = (curN, curL) match {
+        case (0, _) => (take.reverse, curL)
+        case (_, Nil) => (take.reverse, Nil)
+        case (_, x :: xs) => loop(curN - 1, xs, x :: take)
+      }
+
+      loop(n, ls, Nil)
+    }
+  }
+
+  object P18 {
+    def slice[A](from: Int, until: Int, ls: List[A]): List[A] = {
+      def loop(curN: Int, curL: List[A], result: List[A]): List[A] = curL match {
+        case _ :: xs if curN < from => loop(curN + 1, xs, result)
+        case x :: xs if curN < until => loop(curN + 1, xs, x :: result)
+        case _ => result.reverse
+      }
+
+      loop(0, ls, Nil)
+    }
+  }
+
+  object P19 {
+    def rotate[A](n: Int, ls: List[A]): List[A] = {
+      val shift = if (ls.isEmpty) 0 else n % ls.length
+      val left = if (shift > 0) shift else ls.length + shift
+      val (l, r) = (ls take left, ls drop left)
+      r ::: l
+    }
+  }
 }
