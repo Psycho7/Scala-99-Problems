@@ -138,4 +138,36 @@ class ListsTest extends FlatSpec {
     val y = rotate(-2, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
     assert(y == List('j, 'k, 'a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i))
   }
+
+  "removeAt method" should "remove the Nth element" in {
+    import P20.removeAt
+    val x = removeAt(1, List('a, 'b, 'c, 'd))
+    assert(x == (List('a, 'c, 'd), 'b))
+  }
+
+  it should "throw NoSuchElementException if there's no Nth element" in {
+    import P20.removeAt
+    assertThrows[NoSuchElementException] {
+      removeAt(-1, List(1, 2, 3))
+    }
+    assertThrows[NoSuchElementException] {
+      removeAt(3, List(1, 2, 3))
+    }
+  }
+
+  "insertAt method" should "insert a element in a given position" in {
+    import P21.insertAt
+    val x = insertAt('new, 1, List('a, 'b, 'c, 'd))
+    assert(x == List('a, 'new, 'b, 'c, 'd))
+    val y = insertAt('new, 0, List('a, 'b, 'c, 'd))
+    assert(y == List('new, 'a, 'b, 'c, 'd))
+  }
+
+  "range method" should "create a list containing all integers within a given range" in {
+    import P22.range
+    val x = range(4, 9)
+    assert(x == List(4, 5, 6, 7, 8, 9))
+  }
+
+  // TODO: God damn it... What should I do to test a random function (P23, P24, P25)?
 }

@@ -1,5 +1,3 @@
-import java.io.OutputStream
-
 /**
   * Created by Psycho7 on 9/26/16.
   */
@@ -166,5 +164,60 @@ object Lists {
       val (l, r) = (ls take left, ls drop left)
       r ::: l
     }
+  }
+
+  object P20 {
+    def removeAt[A](n: Int, ls: List[A]): (List[A], A) = {
+      def loop(curN: Int, curL: List[A], result: List[A]): (List[A], A) = curL match {
+        case x :: xs if curN == n => (result.reverse ::: xs, x)
+        case x :: xs => loop(curN + 1, xs, x :: result)
+        //case _ => result.reverse
+      }
+
+      if (n < 0 || n >= ls.length) throw new NoSuchElementException
+      else loop(0, ls, Nil)
+    }
+  }
+
+  object P21 {
+    def insertAt[A](item: A, n: Int, ls: List[A]): List[A] = {
+      val (pre, next) = (ls take n, ls drop n)
+      pre ::: (item :: next)
+    }
+  }
+
+  object P22 {
+    def range(from: Int, to: Int): List[Int] = {
+      def loop(curN: Int, result: List[Int]): List[Int] = {
+        if (curN < from) result
+        else loop(curN - 1, curN :: result)
+      }
+
+      loop(to, Nil)
+    }
+  }
+
+  object P23 {
+    import P20.removeAt
+
+    def randomSelect[A](n: Int, ls: List[A]): List[A] =
+      if (n <= 0) Nil
+      else {
+        val (res, item) = removeAt((new util.Random).nextInt(ls.length), ls)
+        item :: randomSelect(n - 1, res)
+      }
+  }
+
+  object P24 {
+    import P22.range
+    import P23.randomSelect
+
+    def lotto(n: Int, m: Int): List[Int] = randomSelect(n, range(1, m))
+  }
+
+  object P25 {
+    import P23.randomSelect
+
+    def randomPermute[A](ls: List[A]): List[A] = randomSelect(ls.length, ls)
   }
 }
