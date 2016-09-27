@@ -5,7 +5,7 @@ import java.io.OutputStream
   */
 object Lists {
   object P01 {
-    def last[T](list: List[T]): T = list match {
+    def last[A](ls: List[A]): A = ls match {
       case x :: Nil => x
       case _ :: xs => last(xs)
       case _ => throw new NoSuchElementException
@@ -13,7 +13,7 @@ object Lists {
   }
 
   object P02 {
-    def penultimate[T](list: List[T]): T = list match {
+    def penultimate[A](ls: List[A]): A = ls match {
       case x :: _ :: Nil => x
       case _ :: xs => penultimate(xs)
       case _ => throw new NoSuchElementException
@@ -21,7 +21,7 @@ object Lists {
   }
 
   object P03 {
-    def nth[T](n: Int, list: List[T]): T = list match {
+    def nth[A](n: Int, ls: List[A]): A = ls match {
       case x :: _ if n == 0 => x
       case _ :: xs => nth(n - 1, xs)
       case _ => throw new NoSuchElementException
@@ -29,56 +29,56 @@ object Lists {
   }
 
   object P04 {
-    def length[T](list: List[T]): Int = {
-      def loop(n: Int, list: List[T]): Int = list match {
+    def length[A](ls: List[A]): Int = {
+      def loop(n: Int, ls: List[A]): Int = ls match {
         case Nil => n
         case _ :: xs => loop(n + 1, xs)
       }
 
-      loop(0, list)
+      loop(0, ls)
     }
   }
 
   object P05 {
-    def reverse[T](list: List[T]): List[T] = {
-      def loop(acc: List[T], res: List[T]): List[T] = res match {
+    def reverse[A](ls: List[A]): List[A] = {
+      def loop(acc: List[A], res: List[A]): List[A] = res match {
         case Nil => acc
         case x :: xs => loop(x :: acc, xs)
       }
 
-      loop(Nil, list)
+      loop(Nil, ls)
     }
   }
 
   object P06 {
-    def isPalindrome[T](list: List[T]): Boolean = list == P05.reverse(list)
+    def isPalindrome[A](ls: List[A]): Boolean = ls == P05.reverse(ls)
   }
 
   object P07 {
-    def flatten(list: List[Any]): List[Any] = (list map {
+    def flatten(ls: List[Any]): List[Any] = (ls map {
       case xs : List[_] => flatten(xs)
       case x => List(x)
     }).foldLeft(Nil: List[Any])(_ ++ _)
   }
 
   object P08 {
-    def compress[T](list: List[T]): List[T] =
-      list.foldRight(List[T]()){ (item, ls) =>
+    def compress[A](ls: List[A]): List[A] =
+      ls.foldRight(List[A]()){ (item, ls) =>
         if (ls.isEmpty || item != ls.head) item :: ls
         else ls
       }
   }
 
   object P09 {
-    def pack[T](list: List[T]): List[List[T]] = {
-      if (list.isEmpty) List(List())
+    def pack[A](ls: List[A]): List[List[A]] = {
+      if (ls.isEmpty) List(List())
       else {
         val (dups, res) = (
-          list takeWhile {
-            _ == list.head
+          ls takeWhile {
+            _ == ls.head
           },
-          list dropWhile {
-            _ == list.head
+          ls dropWhile {
+            _ == ls.head
           })
         if (res == Nil) List(dups)
         else dups :: pack(res)
@@ -87,29 +87,29 @@ object Lists {
   }
 
   object P10 {
-    def encode[T](list: List[T]): List[(Int, T)] = P09.pack(list) map {
+    def encode[A](ls: List[A]): List[(Int, A)] = P09.pack(ls) map {
       x => (x.length, x.head)
     }
   }
 
   object P11 {
-    def encodeModified[T](list: List[T]): List[Any] = P10.encode(list) map {
+    def encodeModified[A](ls: List[A]): List[Any] = P10.encode(ls) map {
       case (1, x) => x
       case x => x
     }
   }
 
   object P12 {
-    def decode[T](list: List[(Int, T)]): List[T] = list flatMap {
+    def decode[A](ls: List[(Int, A)]): List[A] = ls flatMap {
       case (n, x) => List.fill(n)(x)
     }
   }
 
   object P13 {
-    def encodeDirect[T](list: List[T]): List[(Int, T)] = {
-      if (list.isEmpty) Nil
+    def encodeDirect[A](ls: List[A]): List[(Int, A)] = {
+      if (ls.isEmpty) Nil
       else {
-        val (dups, res) = list span { _ == list.head }
+        val (dups, res) = ls span { _ == ls.head }
         (dups.length, dups.head) :: encodeDirect(res)
       }
     }
