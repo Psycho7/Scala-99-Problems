@@ -170,4 +170,23 @@ class ListsTest extends FlatSpec {
   }
 
   // TODO: God damn it... What should I do to test a random function (P23, P24, P25)?
+
+  "combination method" should "generate combinations" in {
+    import P26.combination
+    val x = combination(1, List(1, 2, 3))
+    assert(x == List(List(1), List(2), List(3)))
+    val y = combination(2, List(1, 2, 3))
+    assert(y == List(List(1, 2), List(1, 3), List(2, 3)))
+    val z = combination(3, List(1, 2, 3))
+    assert(z == List(List(1, 2, 3)))
+    val zero = combination(0, List(1, 2, 3))
+    assert(zero == List(Nil))
+  }
+
+  "group method" should "group the elements of a set into disjoint subsets." in {
+    import P27.group
+    val result = group(List(2, 2, 5), List("Aldo", "Beat", "Carla", "David", "Evi", "Flip", "Gary", "Hugo", "Ida"))
+    assert(result.contains(List(List("Aldo", "Beat"), List("Carla", "David"), List("Evi", "Flip", "Gary", "Hugo", "Ida"))))
+    assert(result.contains(List(List("Aldo", "Carla"), List("Beat", "David"), List("Evi", "Flip", "Gary", "Hugo", "Ida"))))
+  }
 }

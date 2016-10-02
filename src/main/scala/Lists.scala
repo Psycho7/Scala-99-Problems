@@ -220,4 +220,32 @@ object Lists {
 
     def randomPermute[A](ls: List[A]): List[A] = randomSelect(ls.length, ls)
   }
+
+  object P26 {
+    def combination[A](n: Int, ls: List[A]): List[List[A]] = {
+      def loop(curN: Int, result: List[List[Int]]): List[List[Int]] =
+        if (curN == n) result
+        else {
+          val next = for {
+              x <- result
+              y <- 0 until (if (x != Nil) x.head else ls.length)
+            } yield y :: x
+          loop(curN + 1, next)
+        }
+
+      loop(0, List(Nil)) map {
+        _ map ls
+      }
+    }
+  }
+
+  object P27 {
+    def group[A](ns: List[Int], ls: List[A]): List[List[List[A]]] = {
+      import P26.combination
+      if (ns == Nil) List(Nil)
+      else combination(ns.head, ls) flatMap { x =>
+        group(ns.tail, ls diff x) map { x :: _ }
+      }
+    }
+  }
 }
