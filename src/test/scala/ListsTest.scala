@@ -189,4 +189,16 @@ class ListsTest extends FlatSpec {
     assert(result.contains(List(List("Aldo", "Beat"), List("Carla", "David"), List("Evi", "Flip", "Gary", "Hugo", "Ida"))))
     assert(result.contains(List(List("Aldo", "Carla"), List("Beat", "David"), List("Evi", "Flip", "Gary", "Hugo", "Ida"))))
   }
+
+  "lsort method" should "sort by length" in {
+    import P28.lsort
+    val result = lsort(List(List('a, 'b, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o)))
+    assert(result == List(List('o), List('d, 'e), List('d, 'e), List('m, 'n), List('a, 'b, 'c), List('f, 'g, 'h), List('i, 'j, 'k, 'l)))
+  }
+
+  "lsortFreq method" should "sort by frequency" in {
+    import P28.lsortFreq
+    val result = lsortFreq(List(List('a, 'b, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o)))
+    assert(result == List(List('i, 'j, 'k, 'l), List('o), List('a, 'b, 'c), List('f, 'g, 'h), List('d, 'e), List('d, 'e), List('m, 'n)))
+  }
 }

@@ -248,4 +248,15 @@ object Lists {
       }
     }
   }
+
+  object P28 {
+    def lsort[A](ls: List[List[A]]): List[List[A]] =
+      ls sortBy { _.length }
+
+    def lsortFreq[A](ls: List[List[A]]): List[List[A]] = {
+      val lens = ls map { _.length }
+      val freq = Map[Int, Int]( lens map {item => (item, lens.count{ _ == item})}: _*)
+      ls sortBy { item => freq(item.length) }
+    }
+  }
 }
