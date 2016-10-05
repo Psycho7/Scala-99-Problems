@@ -11,6 +11,25 @@ object Arithmetic {
 
     // P33
     def isCoprimeTo(that: S99Int): Boolean = gcd(this, that) == 1
+
+    // P34
+    def totient: Int = (1 to this.start) count { _ isCoprimeTo this}
+
+    // P35
+    def primeFactors: List[Int] = {
+      def nextPrime(p: Int) = {
+        def next(start: Int): Stream[Int] = start #:: next(start + 1)
+        next(p + 1).filter(_.isPrime).head
+      }
+
+      def loop(n: Int, p: Int, result: List[Int]): List[Int] = n match {
+        case x if x < p => result.reverse
+        case x if x % p == 0 => loop(n / p, p, p :: result)
+        case x if x % p != 0 => loop(n, nextPrime(p), result)
+      }
+
+      loop(this, 2, Nil)
+    }
   }
 
   object S99Int {

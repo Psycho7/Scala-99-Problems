@@ -28,4 +28,15 @@ class ArithmeticTest extends FlatSpec {
     assert(!2.isCoprimeTo(4))
     assert(!121.isCoprimeTo(33))
   }
+
+  "totient method" should "calculate Euler's totient function phi(m)" in {
+    assert(10.totient == 4)
+  }
+
+  "primeFactors method" should "determine the prime factors of a given positive integer" in {
+    assert(315.primeFactors == List(3, 3, 5, 7))
+    assert(1.primeFactors == Nil)
+    assert(2.primeFactors == 2 :: Nil)
+    assert(6.primeFactors == List(2, 3))
+  }
 }
