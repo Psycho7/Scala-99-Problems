@@ -47,4 +47,13 @@ class ArithmeticTest extends FlatSpec {
   "totient2 methoud" should "calculate Euler's totient function phi(m)" in {
     assert((1 to 1000) forall { x => x.totient == x.totient2 })
   }
+
+  "listPrimesinRange method" should "construct a list of all prime numbers in a given range" in {
+    assert(listPrimesinRange(7 to 31) == List(7, 11, 13, 17, 19, 23, 29, 31))
+  }
+
+  "goldbach method" should "find the two prime numbers that sum up to a given even integer" in {
+    assert(7.goldbach == (2, 5))
+    assert(28.goldbach == (5, 23))
+  }
 }
