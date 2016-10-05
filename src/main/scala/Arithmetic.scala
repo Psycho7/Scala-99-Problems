@@ -30,6 +30,25 @@ object Arithmetic {
 
       loop(this, 2, Nil)
     }
+
+    // P36
+    def primeFactorMultiplicity: Map[Int, Int] = {
+      def encode(now: Int, count: Int, ls: List[Int], result: List[(Int, Int)]): List[(Int, Int)] =
+        ls match {
+          case Nil => ((now, count) :: result).reverse.tail
+          case x :: xs =>
+            if (x == now) encode(now, count + 1, xs, result)
+            else encode(x, 1, xs, (now, count) :: result)
+        }
+
+      val primes = primeFactors
+      Map[Int, Int](encode(0, 0, primes, Nil): _*)
+    }
+
+    // P37
+    def totient2: Int = (1 /: primeFactorMultiplicity) {
+      case (a, (p ,r)) => a * (p - 1) * Math.pow(p, r - 1).toInt
+    }
   }
 
   object S99Int {

@@ -39,4 +39,12 @@ class ArithmeticTest extends FlatSpec {
     assert(2.primeFactors == 2 :: Nil)
     assert(6.primeFactors == List(2, 3))
   }
+
+  "primeFactorMultiplicity method" should "determine the prime factors of a given positive integer" in {
+    assert(315.primeFactorMultiplicity == Map(3 -> 2, 5 -> 1, 7 -> 1))
+  }
+
+  "totient2 methoud" should "calculate Euler's totient function phi(m)" in {
+    assert((1 to 1000) forall { x => x.totient == x.totient2 })
+  }
 }
