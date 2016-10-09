@@ -3,37 +3,59 @@
   */
 object Logic {
   object S99Logic {
+
+    implicit def boolean2S99Logic(a: Boolean): S99Logic = new S99Logic(a)
+
     def not(a: Boolean) = a match {
       case true => false
       case false => true
     }
 
-    def and(a: Boolean, b: Boolean) = (a, b) match {
+    val tf = List(true, false)
+
+    // P46
+    def table2(expr: (Boolean, Boolean) => Boolean): Unit = {
+      println("A     B     result")
+      for {
+        a <- tf
+        b <- tf
+      } {
+        printf("%-5s %-5s %-5s\n", a, b, expr(a, b))
+      }
+    }
+  }
+
+  // P47
+  class S99Logic(a: Boolean) {
+    import S99Logic._
+
+    def and(b: Boolean) = (a, b) match {
       case (true, true) => true
       case _ => false
     }
 
-    def or(a: Boolean, b: Boolean) = (a, b) match {
+    def or(b: Boolean) = (a, b) match {
       case (false, false) => false
       case _ => true
     }
 
-    def equ(a: Boolean, b: Boolean) = (a, b) match {
+    def equ(b: Boolean) = (a, b) match {
       case (true, true) => true
       case (false, false) => true
       case _ => false
     }
 
-    def nand(a: Boolean, b: Boolean) = not(and(a, b))
+    def nand(b: Boolean) = not(a and b)
 
-    def nor(a: Boolean, b: Boolean) = not(or(a, b))
+    def nor(b: Boolean) = not(a or b)
 
-    def xor(a: Boolean, b: Boolean) = (a, b) match {
+    def xor(b: Boolean) = (a, b) match {
       case (true, false) => true
       case (false, true) => true
       case _ => false
     }
 
-    def impl(a: Boolean, b: Boolean) = or(not(a), b)
+    def impl(b: Boolean) = not(a) or b
+
   }
 }

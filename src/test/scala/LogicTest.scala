@@ -4,6 +4,6 @@
 import org.scalatest._
 
 class LogicTest extends FlatSpec {
-  import Logic._
+  import Logic.S99Logic._
 
 }
