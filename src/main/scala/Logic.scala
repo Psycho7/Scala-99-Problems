@@ -23,6 +23,13 @@ object Logic {
         printf("%-5s %-5s %-5s\n", a, b, expr(a, b))
       }
     }
+
+    def gray(n: Int): List[String] =
+      if (n == 0) List("")
+      else {
+        val pre = gray(n - 1)
+        pre.map{ "0" + _ } ::: pre.reverse.map{ "1" + _ }
+      }
   }
 
   // P47
@@ -56,6 +63,5 @@ object Logic {
     }
 
     def impl(b: Boolean) = not(a) or b
-
   }
 }
