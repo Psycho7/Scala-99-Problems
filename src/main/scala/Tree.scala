@@ -3,14 +3,34 @@
   */
 object Tree {
 
-  sealed abstract class Tree[+T]
+  sealed abstract class Tree[+T] {
+    // P56
+    def isSymmetric: Boolean
+    def isMirrorOf[V](that: Tree[V]): Boolean
+  }
 
   case class Node[+T](value: T, left: Tree[T], right: Tree[T]) extends Tree[T] {
     override def toString = "T(" + value.toString + " " + left.toString + " " + right.toString + ")"
+
+    // P56
+    def isSymmetric = left isMirrorOf right
+
+    def isMirrorOf[V](that: Tree[V]): Boolean = that match {
+      case Node(_, l, r) => (left isMirrorOf r) && (right isMirrorOf l)
+      case End => false
+    }
   }
 
   case object End extends Tree[Nothing] {
     override def toString = "."
+
+    // P56
+    def isSymmetric = true
+
+    def isMirrorOf[V](that: Tree[V]) = that match {
+      case End => true
+      case _ => false
+    }
   }
 
   object Node {
