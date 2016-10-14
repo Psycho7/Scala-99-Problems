@@ -17,4 +17,23 @@ object Tree {
     def apply[T](value: T): Node[T] = Node(value, End, End)
   }
 
+  // P55
+  def cBalanced[T](count: Int, value: T): List[Tree[T]] = count match {
+    case n if n < 1 => List(End)
+    case n if n % 2 == 1 =>
+      val sub = cBalanced(n / 2, value)
+      for {
+        x <- sub
+        y <- sub
+      } yield Node(value, x, y)
+    case n if n % 2 == 0 =>
+      val half = n / 2
+      val subX = cBalanced(half, value)
+      val subY = cBalanced(half - 1, value)
+      for {
+        x <- subX
+        y <- subY
+        z <- List(true, false)
+      } yield if (z) Node(value, x, y) else Node(value, y, x)
+  }
 }
