@@ -41,4 +41,20 @@ class TreeTest extends FlatSpec {
     assert(Node(1).isSymmetric)
     assert(!l2.isSymmetric)
   }
+
+  "addValue method" should "add a node to a BST" in {
+    val res = End.addValue(2)
+    assert(res == Node(2))
+    val a = res.addValue(0)
+    assert(a == Node(2, Node(0), End))
+    val b = a.addValue(3)
+    assert(b == Node(2, Node(0), Node(3)))
+    val c = b.addValue(1)
+    assert(c == Node(2, Node(0, End, Node(1)), Node(3)))
+  }
+
+  "fromList method" should "create a BST from a given List" in {
+    assert(fromList(List(5, 3, 18, 1, 4, 12, 21)).isSymmetric)
+    assert(!fromList(List(3, 2, 5, 7, 4)).isSymmetric)
+  }
 }

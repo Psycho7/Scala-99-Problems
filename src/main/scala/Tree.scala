@@ -7,6 +7,9 @@ object Tree {
     // P56
     def isSymmetric: Boolean
     def isMirrorOf[V](that: Tree[V]): Boolean
+
+    // P57
+    def addValue[U >: T <% Ordered[U]](v: U): Tree[U]
   }
 
   case class Node[+T](value: T, left: Tree[T], right: Tree[T]) extends Tree[T] {
@@ -19,6 +22,11 @@ object Tree {
       case Node(_, l, r) => (left isMirrorOf r) && (right isMirrorOf l)
       case End => false
     }
+
+    // P57
+    def addValue[U >: T <% Ordered[U]](v: U): Tree[U] =
+      if (v < value) Node(value, left.addValue(v), right)
+      else Node(value, left, right.addValue(v))
   }
 
   case object End extends Tree[Nothing] {
@@ -31,6 +39,9 @@ object Tree {
       case End => true
       case _ => false
     }
+
+    // P57
+    def addValue[U <% Ordered[U]](v: U): Tree[U] = Node(v)
   }
 
   object Node {
@@ -55,5 +66,15 @@ object Tree {
         y <- subY
         z <- List(true, false)
       } yield if (z) Node(value, x, y) else Node(value, y, x)
+  }
+
+  // P57
+  def fromList[T <% Ordered[T]](ls: List[T]): Tree[T] = {
+    def loop(res: Tree[T], ls: List[T]): Tree[T] = ls match {
+      case Nil => res
+      case x :: xs => loop(res.addValue(x), xs)
+    }
+
+    loop(End, ls)
   }
 }
