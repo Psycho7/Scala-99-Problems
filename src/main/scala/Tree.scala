@@ -77,4 +77,8 @@ object Tree {
 
     loop(End, ls)
   }
+
+  // P58
+  def symmetricBalancedTrees[T](n: Int, v: T): List[Tree[T]] =
+    cBalanced(n, v) filter { _.isSymmetric }
 }
