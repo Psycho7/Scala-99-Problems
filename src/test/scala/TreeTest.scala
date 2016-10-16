@@ -57,4 +57,17 @@ class TreeTest extends FlatSpec {
     assert(fromList(List(5, 3, 18, 1, 4, 12, 21)).isSymmetric)
     assert(!fromList(List(3, 2, 5, 7, 4)).isSymmetric)
   }
+
+  "hbalTrees methoud" should "construct BSTs of a given height" in {
+    val v = 1
+    val a = hbalTrees(1, v)
+    assert(a == List(Node(v)))
+    val b = hbalTrees(2, v)
+    assert(b.length == 3)
+    assert(b contains Node(v, Node(v), End))
+    assert(b contains Node(v, End, Node(v)))
+    assert(b contains Node(v, Node(v), Node(v)))
+    val c = hbalTrees(3, v)
+    assert(c.length == 15)
+  }
 }

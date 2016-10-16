@@ -81,4 +81,23 @@ object Tree {
   // P58
   def symmetricBalancedTrees[T](n: Int, v: T): List[Tree[T]] =
     cBalanced(n, v) filter { _.isSymmetric }
+
+  // P59
+  def hbalTrees[T](h: Int, v: T): List[Tree[T]] = h match {
+    case 0 => List(End)
+    case 1 => List(Node(v))
+    case _ =>
+      val full = hbalTrees(h - 1, v)
+      val less = hbalTrees(h - 2, v)
+      val f = for {
+        x <- full
+        y <- full
+      } yield Node(v, x, y)
+      val l = for {
+        x <- full
+        y <- less
+        z <- List(true, false)
+      } yield if (z) Node(v, x, y) else Node(v, y, x)
+      f ::: l
+  }
 }
