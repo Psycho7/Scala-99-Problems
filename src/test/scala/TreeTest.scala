@@ -58,7 +58,7 @@ class TreeTest extends FlatSpec {
     assert(!fromList(List(3, 2, 5, 7, 4)).isSymmetric)
   }
 
-  "hbalTrees methoud" should "construct BSTs of a given height" in {
+  "hbalTrees method" should "construct BSTs of a given height" in {
     val v = 1
     val a = hbalTrees(1, v)
     assert(a == List(Node(v)))
@@ -69,5 +69,13 @@ class TreeTest extends FlatSpec {
     assert(b contains Node(v, Node(v), Node(v)))
     val c = hbalTrees(3, v)
     assert(c.length == 15)
+  }
+
+  "minHbalNodes method" should "find out the minimum number of nodes it can contain" in {
+    assert(minHbalNodes(3) == 4)
+  }
+
+  "maxHbalHeight method" should "find out the maximum height H a height-balanced binary tree with N nodes can have" in {
+    assert(maxHbalHeight(4) == 3)
   }
 }

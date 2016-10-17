@@ -10,6 +10,10 @@ object Tree {
 
     // P57
     def addValue[U >: T <% Ordered[U]](v: U): Tree[U]
+
+    val height: Int
+
+    val nodes: Int
   }
 
   case class Node[+T](value: T, left: Tree[T], right: Tree[T]) extends Tree[T] {
@@ -27,6 +31,10 @@ object Tree {
     def addValue[U >: T <% Ordered[U]](v: U): Tree[U] =
       if (v < value) Node(value, left.addValue(v), right)
       else Node(value, left, right.addValue(v))
+
+    val height = 1 + (left.height max right.height)
+
+    val nodes = 1 + left.nodes + right.nodes
   }
 
   case object End extends Tree[Nothing] {
@@ -42,6 +50,10 @@ object Tree {
 
     // P57
     def addValue[U <% Ordered[U]](v: U): Tree[U] = Node(v)
+
+    val height = 0
+
+    val nodes = 0
   }
 
   object Node {
@@ -99,5 +111,20 @@ object Tree {
         z <- List(true, false)
       } yield if (z) Node(v, x, y) else Node(v, y, x)
       f ::: l
+  }
+
+  // P60
+  def minHbalNodes(height: Int): Int = height match {
+    case n if n < 1 => 0
+    case 1 => 1
+    case n => minHbalNodes(n - 1) + minHbalNodes(n - 2) + 1
+  }
+
+  def maxHbalHeight(nodes: Int): Int =
+    Stream.from(1).takeWhile(minHbalNodes(_) <= nodes).last
+
+  def hbalTreeWithNodes[T](nodes: Int, v: T): List[Tree[T]] = {
+    val minHeight = (Math.log(nodes + 1) / Math.log(2)).toInt
+    (minHeight to maxHbalHeight(nodes)).flatMap(hbalTrees(_, v)).filter(_.nodes == nodes).toList
   }
 }
