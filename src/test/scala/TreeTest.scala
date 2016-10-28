@@ -78,4 +78,8 @@ class TreeTest extends FlatSpec {
   "maxHbalHeight method" should "find out the maximum height H a height-balanced binary tree with N nodes can have" in {
     assert(maxHbalHeight(4) == 3)
   }
+
+  "leafCount method" should "count the leaves of a binary tree" in {
+    assert(Node('x', Node('x'), End).leafCount == 1)
+  }
 }

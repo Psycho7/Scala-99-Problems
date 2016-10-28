@@ -14,6 +14,9 @@ object Tree {
     val height: Int
 
     val nodes: Int
+
+    // P61
+    def leafCount: Int
   }
 
   case class Node[+T](value: T, left: Tree[T], right: Tree[T]) extends Tree[T] {
@@ -35,6 +38,12 @@ object Tree {
     val height = 1 + (left.height max right.height)
 
     val nodes = 1 + left.nodes + right.nodes
+
+    // P61
+    def leafCount = this match {
+      case Node(_, End, End) => 1
+      case _ => left.leafCount + right.leafCount
+    }
   }
 
   case object End extends Tree[Nothing] {
@@ -54,6 +63,9 @@ object Tree {
     val height = 0
 
     val nodes = 0
+
+    // P61
+    val leafCount = 0
   }
 
   object Node {
@@ -127,4 +139,5 @@ object Tree {
     val minHeight = (Math.log(nodes + 1) / Math.log(2)).toInt
     (minHeight to maxHbalHeight(nodes)).flatMap(hbalTrees(_, v)).filter(_.nodes == nodes).toList
   }
+
 }
