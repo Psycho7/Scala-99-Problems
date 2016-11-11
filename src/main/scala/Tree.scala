@@ -20,6 +20,9 @@ object Tree {
 
     // P61A
     def leafList: List[T]
+
+    // P62
+    def internalList: List[T]
   }
 
   case class Node[+T](value: T, left: Tree[T], right: Tree[T]) extends Tree[T] {
@@ -50,8 +53,14 @@ object Tree {
 
     // P61A
     def leafList: List[T] = this match {
-      case Node(value, End, End) => List(value)
+      case Node(_, End, End) => List(value)
       case _ => left.leafList ::: right.leafList
+    }
+
+    // P62
+    def internalList: List[T] = this match {
+      case Node(_, End, End) => Nil
+      case _ => left.internalList ::: List(value) ::: right.internalList
     }
   }
 
@@ -78,6 +87,9 @@ object Tree {
 
     // P61A
     val leafList = Nil
+
+    // P62
+    val internalList = Nil
   }
 
   object Node {
