@@ -17,6 +17,9 @@ object Tree {
 
     // P61
     def leafCount: Int
+
+    // P61A
+    def leafList: List[T]
   }
 
   case class Node[+T](value: T, left: Tree[T], right: Tree[T]) extends Tree[T] {
@@ -44,6 +47,12 @@ object Tree {
       case Node(_, End, End) => 1
       case _ => left.leafCount + right.leafCount
     }
+
+    // P61A
+    def leafList: List[T] = this match {
+      case Node(value, End, End) => List(value)
+      case _ => left.leafList ::: right.leafList
+    }
   }
 
   case object End extends Tree[Nothing] {
@@ -66,6 +75,9 @@ object Tree {
 
     // P61
     val leafCount = 0
+
+    // P61A
+    val leafList = Nil
   }
 
   object Node {
