@@ -94,4 +94,9 @@ class TreeTest extends FlatSpec {
   "atLevel method" should "collect the nodes at a given level in a list" in {
     assert(Node('a', Node('b'), Node('c', Node('d'), Node('e'))).atLevel(2) == List('b', 'c'))
   }
+
+  "completeBinaryTree method" should "construct a complete binary tree" in {
+    assert(Tree.completeBinaryTree(3, "x") == Node("x", Node("x"), Node("x")))
+    assert(Tree.completeBinaryTree(6, "x") == Node("x", Node("x", Node("x"), Node("x")), Node("x", Node("x"), End)))
+  }
 }

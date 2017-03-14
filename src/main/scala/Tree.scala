@@ -175,4 +175,14 @@ object Tree {
     (minHeight to maxHbalHeight(nodes)).flatMap(hbalTrees(_, v)).filter(_.nodes == nodes).toList
   }
 
+  // P63
+  def completeBinaryTree[T](n: Int, value: T): Tree[T] = {
+    def construct(addr: Int): Tree[T] = addr match {
+      case x if x > n => End
+      case _ => Node(value, construct(addr * 2), construct(addr * 2 + 1))
+    }
+
+    construct(1)
+  }
+
 }
