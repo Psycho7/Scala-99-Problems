@@ -23,6 +23,9 @@ object Tree {
 
     // P62
     def internalList: List[T]
+
+    // P62B
+    def atLevel(n: Int): List[T]
   }
 
   case class Node[+T](value: T, left: Tree[T], right: Tree[T]) extends Tree[T] {
@@ -62,6 +65,11 @@ object Tree {
       case Node(_, End, End) => Nil
       case _ => left.internalList ::: List(value) ::: right.internalList
     }
+
+    // P62B
+    def atLevel(n: Int): List[T] = if (n < 1) Nil
+    else if (n == 1) List(value)
+    else left.atLevel(n - 1) ::: right.atLevel(n - 1)
   }
 
   case object End extends Tree[Nothing] {
@@ -90,6 +98,9 @@ object Tree {
 
     // P62
     val internalList = Nil
+
+    // P62B
+    def atLevel(n: Int) = Nil
   }
 
   object Node {

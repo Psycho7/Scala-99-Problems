@@ -90,4 +90,8 @@ class TreeTest extends FlatSpec {
   "internalList method" should "collect the internal nodes of a binary tree in a list" in {
     assert(Node('a', Node('b'), Node('c', Node('d'), Node('e'))).internalList == List('a', 'c'))
   }
+
+  "atLevel method" should "collect the nodes at a given level in a list" in {
+    assert(Node('a', Node('b'), Node('c', Node('d'), Node('e'))).atLevel(2) == List('b', 'c'))
+  }
 }
