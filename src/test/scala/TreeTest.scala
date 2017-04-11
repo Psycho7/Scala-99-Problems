@@ -99,4 +99,9 @@ class TreeTest extends FlatSpec {
     assert(Tree.completeBinaryTree(3, "x") == Node("x", Node("x"), Node("x")))
     assert(Tree.completeBinaryTree(6, "x") == Node("x", Node("x", Node("x"), Node("x")), Node("x", Node("x"), End)))
   }
+
+  "layoutBinaryTree method" should "turn a tree of normal Nodes into a tree of PositionedNodes" in {
+    val str = Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree.toString
+    assert(str == "T[3,1](a T[1,2](b . T[2,3](c . .)) T[4,2](d . .))")
+  }
 }

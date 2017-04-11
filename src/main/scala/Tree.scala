@@ -26,6 +26,11 @@ object Tree {
 
     // P62B
     def atLevel(n: Int): List[T]
+
+    // P64
+    def layoutBinaryTree = layoutBinaryTreeInternal(1, 1)._1
+
+    def layoutBinaryTreeInternal(firstX: Int, depth: Int): (Tree[T], Int)
   }
 
   case class Node[+T](value: T, left: Tree[T], right: Tree[T]) extends Tree[T] {
@@ -70,6 +75,13 @@ object Tree {
     def atLevel(n: Int): List[T] = if (n < 1) Nil
     else if (n == 1) List(value)
     else left.atLevel(n - 1) ::: right.atLevel(n - 1)
+
+    // P63
+    override def layoutBinaryTreeInternal(firstX: Int, depth: Int): (Tree[T], Int) = {
+      val (leftTree, myX) = left.layoutBinaryTreeInternal(firstX, depth + 1)
+      val (rightTree, nextX) = right.layoutBinaryTreeInternal(myX + 1, depth + 1)
+      (new PositionedNode(value, leftTree, rightTree, myX, depth), nextX)
+    }
   }
 
   case object End extends Tree[Nothing] {
@@ -101,10 +113,21 @@ object Tree {
 
     // P62B
     def atLevel(n: Int) = Nil
+
+    // P63
+    override def layoutBinaryTreeInternal(firstX: Int, depth: Int) = (End, firstX)
   }
 
   object Node {
     def apply[T](value: T): Node[T] = Node(value, End, End)
+  }
+
+  class PositionedNode[+T](override val value: T,
+                                override val left: Tree[T],
+                                override val right: Tree[T],
+                                x: Int, y: Int) extends Node[T](value, left, right) {
+    override def toString = "T[" + x.toString + "," + y.toString + "](" +
+      value.toString + " " + left.toString + " " + right.toString + ")"
   }
 
   // P55
