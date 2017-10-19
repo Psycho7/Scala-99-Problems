@@ -1,7 +1,8 @@
 import org.scalatest._
 
 class MultiwayTreeTest extends FlatSpec {
-  import Multiwaytree._
+  import Multiwaytree.MTree
+  import Multiwaytree.MTree.str2MTree
 
   // P70C
   "nodeCount" should "count the nodes of a multiway tree" in {
@@ -16,5 +17,12 @@ class MultiwayTreeTest extends FlatSpec {
     val str = "afg^^c^bd^e^^^"
     assert(tree.toString == str)
     assert(MTree.str2MTree(str).toString == str)
+  }
+
+  // P71
+  "internalPathLength" should "determine the internal path length of a tree" in {
+    assert("a^".internalPathLength == 0)
+    assert("afg^^^".internalPathLength == 3)
+    assert("afg^^c^bd^e^^^".internalPathLength == 9)
   }
 }

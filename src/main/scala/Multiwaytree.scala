@@ -7,6 +7,10 @@ object Multiwaytree {
       case List() => 1
       case _ => children.map(_.nodeCount).sum + 1
     }
+    def internalPathLength: Int = children match {
+      case List() => 0
+      case ls => ls.map(c => c.internalPathLength + c.nodeCount).sum
+    }
   }
 
   object MTree {
