@@ -25,4 +25,11 @@ class MultiwayTreeTest extends FlatSpec {
     assert("afg^^^".internalPathLength == 3)
     assert("afg^^c^bd^e^^^".internalPathLength == 9)
   }
+
+  // P72
+  "postorder" should "construct the postorder sequence of the tree nodes" in {
+    assert("a^".postorder == List('a'))
+    assert("ab^c^d^^".postorder == 'b' :: 'c' :: 'd' :: 'a' :: Nil)
+    assert("afg^^c^bd^e^^^".postorder == List('g', 'f', 'c', 'd', 'e', 'b', 'a'))
+  }
 }

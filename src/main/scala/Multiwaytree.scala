@@ -11,6 +11,10 @@ object Multiwaytree {
       case List() => 0
       case ls => ls.map(c => c.internalPathLength + c.nodeCount).sum
     }
+    def postorder: List[T] = children match {
+      case List() => List(value)
+      case ls => ls.flatMap(_.postorder) ::: List(value)
+    }
   }
 
   object MTree {
